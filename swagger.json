@@ -1,0 +1,623 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "whatsapp-application",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://api10.successfactors.com"
+  }, {
+    "url" : "https://km9q24vq5c.execute-api.ap-south-1.amazonaws.com"
+  } ],
+  "components" : {
+    "securitySchemes" : {
+      "basicAuth" : {
+        "type" : "http",
+        "scheme" : "basic"
+      }
+    }
+  },
+  "tags" : [ {
+    "name" : "Dev Server Apis"
+  }, {
+    "name" : "Leave Approval And Rejection Apis"
+  }, {
+    "name" : "Lambda Apis"
+  } ],
+  "paths" : {
+    "/odata/v2/EmpJob" : {
+      "get" : {
+        "tags" : [ "Dev Server Apis" ],
+        "summary" : "get single user by userId and BG",
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "$filter",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "division eq 'BG5-BU5' and userId eq '1010678'"
+        }, {
+          "name" : "$expand",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "userNav,userNav/manager"
+        }, {
+          "name" : "$select",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "userId,jobTitle,location,managerId,jobCode,userNav/cellPhone,userNav/businessPhone,userNav/defaultFullName,userNav/manager/cellPhone,userNav/manager/defaultFullName,userNav/manager/email,userNav/email,businessUnit"
+        }, {
+          "name" : "$format",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/odata/v2/FODivision" : {
+      "get" : {
+        "tags" : [ "Dev Server Apis" ],
+        "summary" : "get all units with full name",
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "$select",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "externalCode,name"
+        }, {
+          "name" : "$format",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "JSON"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/odata/v2/FOBusinessUnit" : {
+      "get" : {
+        "tags" : [ "Dev Server Apis" ],
+        "summary" : "get all business groups",
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "$select",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "externalCode"
+        }, {
+          "name" : "$format",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/odata/v2/EmpTimeAccountBalance" : {
+      "get" : {
+        "tags" : [ "Leave Approval And Rejection Apis" ],
+        "summary" : "show leaves",
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "$filter",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "timeAccountType%20in%20%27Birthday%20Leave%27,%27EL%27,%27Medical%20Leave_1%27,%27Marriage%20Leave%27,%27Optional%20Holiday%27,%27MTL%27,%27FOH%27,%27C-Off%27,%27COVID%27,%27ANL%27,%27BR%27,%27MCL%27,%27AEL%27,%27Paternity%20Leave%27,%27ENCASH%27%20and%20userId%20eq%20%271011568%27"
+        }, {
+          "name" : "$select",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "timeAccount,accountClosed,balance,timeAccountType,timeUnit,userId"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/odata/v2/EmployeeTime" : {
+      "post" : {
+        "tags" : [ "Leave Approval And Rejection Apis" ],
+        "summary" : "apply leave",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "__metadata" : {
+                    "uri" : "http://api10preview.sapsf.com/odata/v2/EmployeeTime",
+                    "type" : "SFOData.EmployeeTime"
+                  },
+                  "startDate" : "/Date(1669680000000)/",
+                  "endDate" : "/Date(1669680000000)/",
+                  "approvalStatus" : "PENDING",
+                  "userIdNav" : {
+                    "__metadata" : {
+                      "uri" : "https://api10preview.sapsf.com/odata/v2/User('1011568')",
+                      "type" : "SFOData.User"
+                    }
+                  },
+                  "timeTypeNav" : {
+                    "__metadata" : {
+                      "uri" : "https://api10preview.sapsf.com/odata/v2/TimeType('EL')",
+                      "type" : "SFOData.TimeType"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "workflowConfirmed",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean"
+          },
+          "example" : "true"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/odata/v2/approveWfRequest" : {
+      "post" : {
+        "tags" : [ "Leave Approval And Rejection Apis" ],
+        "summary" : "approve",
+        "requestBody" : {
+          "content" : { }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "wfRequestId",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "972145L"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/odata/v2/rejectWfRequest" : {
+      "post" : {
+        "tags" : [ "Leave Approval And Rejection Apis" ],
+        "summary" : "reject leave",
+        "requestBody" : {
+          "content" : { }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "wfRequestId",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "972243L"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/odata/v2/Todo" : {
+      "get" : {
+        "tags" : [ "Leave Approval And Rejection Apis" ],
+        "summary" : "manager pending requests",
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ],
+        "parameters" : [ {
+          "name" : "categoryId",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          },
+          "example" : "18"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/group/members" : {
+      "post" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "add members",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "groupName" : "PTG",
+                  "members" : [ {
+                    "_id" : {
+                      "$oid" : "637b7ed34954e702f9fe1bd1"
+                    },
+                    "name" : "Prajvi Jain",
+                    "email" : "prajvi.jain@yash.com",
+                    "mobileNumber" : "919617699261",
+                    "empId" : "1004687",
+                    "__v" : 0
+                  }, {
+                    "_id" : {
+                      "$oid" : "62ff5ed2d62daae1201e9121"
+                    },
+                    "name" : "Nikita Jaiswal",
+                    "email" : "nikita.jaiswal@yash.com",
+                    "mobileNumber" : "919926319695",
+                    "empId" : "1011567",
+                    "__v" : 0
+                  }, {
+                    "_id" : {
+                      "$oid" : "637b8517183fa9b8833c204c"
+                    },
+                    "name" : "Ankit Raghuwanshi",
+                    "email" : "ankit.raghuwanshi@yash.com",
+                    "mobileNumber" : "918602759535",
+                    "empId" : "1010671",
+                    "__v" : 0
+                  } ]
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "delete member from group",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "groupId" : "63860ac5812bc8b495380795",
+                  "memberId" : "637b8517183fa9b8833c204c"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/getallwhatsappusers" : {
+      "get" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "get list of whatsapp users",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/group" : {
+      "get" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "getAllGroups",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "create group",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "name" : "YASH INNOVATION"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/successfactor/businessgroups" : {
+      "get" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "getAllBusinessGroups(dev)",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/successfactor/businessunits" : {
+      "get" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "all Business Unit Of Business Group",
+        "parameters" : [ {
+          "name" : "businessGroup",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "BG511"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/successfactor/users" : {
+      "get" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "get all user by business group",
+        "parameters" : [ {
+          "name" : "businessGroup",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "BG5"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/successfactor/allbusinessunits" : {
+      "get" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "allbusiness units",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/successfactor/location/allloaction" : {
+      "get" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "all locations and code",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/successfactor/allusers" : {
+      "get" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "generic api for users",
+        "parameters" : [ {
+          "name" : "location",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "null"
+        }, {
+          "name" : "businessGroup",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "null"
+        }, {
+          "name" : "businessUnit",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "BG5-BU5"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/event" : {
+      "post" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "create event",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "eventDate" : "2022-12-15T13:36:29.336Z",
+                  "createdBy" : "ankit",
+                  "name" : "thanks giving update ankkit update"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/dev/sendbroadcastmsg" : {
+      "post" : {
+        "tags" : [ "Lambda Apis" ],
+        "summary" : "broadcast msg",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "example" : {
+                  "broadcastMessage" : "This is testing image message",
+                  "recipients" : [ {
+                    "name" : "ankit",
+                    "mobileNumber" : "917989453984"
+                  }, {
+                    "name" : "nikita",
+                    "mobileNumber" : "919926319695"
+                  } ],
+                  "mimetype" : "image/jpeg",
+                  "file" : "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"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    }
+  }
+}
